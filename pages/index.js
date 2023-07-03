@@ -1,118 +1,139 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import SearchInput from "@/components/common/home.UI/SearchInput";
+import HeroSlider from "../components/common/home.UI/HeroSlider";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setMovieData } from "../store/MovieListSlice";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import PopularListSlider from "@/components/common/home.UI/PopularListSlider";
+import GenereList from "@/components/common/home.UI/GenereList";
+import { IoIosArrowForward } from "react-icons/io";
+import TheaterSlide from "@/components/common/home.UI/TheaterSlide";
 
-const inter = Inter({ subsets: ['latin'] })
+// export async function getServerSideProps(context) {
+//   const { query } = context;
 
-export default function Home() {
+//   const TopTrend = await axios.get(
+//     `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1&limit=5`
+//   );
+//   const PopularList = await axios.get(
+//     `https://api.themoviedb.org/3/trending/${
+//       query.type === "series" ? "tv" : "movie"
+//     }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+//   );
+//   const NowPlaying = await axios.get(
+//     `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+//   );
+
+//   const data1 = TopTrend.data.results;
+//   const data2 = PopularList.data.results;
+//   const data3 = NowPlaying.data.results;
+
+//   return {
+//     props: {
+//       data1: data1.slice(0, 5),
+//       data2: data2,
+//       data3: data3.slice(0, 10),
+//     },
+//   };
+// }
+export async function getServerSideProps(context) {
+  const { query } = context;
+  const apiEndpoints = [
+    `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/trending/${
+      query.type === "series" ? "tv" : "movie"
+    }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
+  ];
+
+  const apiResponses = await Promise.all(
+    apiEndpoints.map((endpoint) => axios.get(endpoint))
+  );
+
+  const data1 = apiResponses[0].data.results;
+  const data2 = apiResponses[1].data.results;
+  const data3 = apiResponses[2].data.results;
+
+  return {
+    props: {
+      data1: data1.slice(0, 5),
+      data2: data2,
+      data3: data3.slice(0, 10),
+    },
+  };
+}
+
+export default function Home({ data1, data2, data3 }) {
+  const [routeCheck, setRouteCheck] = useState(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!routeCheck) {
+      router.push("", undefined, { scroll: false });
+    } else {
+      router.push("/?type=series", undefined, { scroll: false });
+    }
+  }, [routeCheck]);
+
+  // useEffect(() => {
+  //   dispatch(setMovieData(data1));
+  // }, [data1]);
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.js</code>
+    <main className="w-full h-full flex flex-col justify-center items-center relative">
+      <HeroSlider data1={data1} />
+      <div className="pt-32 pb-14 flex flex-col justify-center items-center sm:hidden">
+        <h4 className="font-cherry text-5xl drop-shadow-3xl inline-block mix-blend-screen">
+          MRML
+        </h4>
+
+        <p className="font-mont text-base text-zinc-200 pt-2">
+          movie reviews with myanmar language
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <SearchInput />
+      </div>
+      <div className="w-11/12 h-1px relative bg-indigo-500 mr-5 ml-5 mb-24 md:mb-12">
+        <div className="w-2 h-2 bg-purple-500 rounded-full absolute -top-1 left-1/2"></div>
+      </div>
+      <div className="w-full md:w-4/5 flex flex-col justify-center items-center">
+        <h4 className="font-dela bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block bg-clip-text text-transparent text-xl mb-5 md:text-2xl md:mb-7">
+          POPULAR
+        </h4>
+        <div className="flex text-white text-base font-semibold mt-2 pb-9 font-mont">
+          <p
+            onClick={() => setRouteCheck(false)}
+            className={`${
+              routeCheck === false
+                ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block"
+                : ""
+            } border border-indigo-400 rounded-sm pl-2 pr-2 pt-1 pb-1 cursor-pointer duration-75`}
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            Movies
+          </p>
+          <p
+            onClick={() => setRouteCheck(true)}
+            className={`${
+              routeCheck === true
+                ? "bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block"
+                : ""
+            } border border-indigo-400 rounded-sm pl-3 pr-3 pt-1 pb-1  cursor-pointer duration-75`}
+          >
+            Series
+          </p>
         </div>
+        <PopularListSlider data2={data2} />
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="w-11/12 mt-32 lg:w-4/5">
+        <GenereList />
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="w-full pb-48 mt-28 lg:w-4/5 lg:pb-64">
+        <h4 className="relative flex items-center text-white font-dela text-lg left-6 lg:left-0">
+          IN THEATER
+          <IoIosArrowForward />
+        </h4>
+        <TheaterSlide data3={data3} />
       </div>
     </main>
-  )
+  );
 }

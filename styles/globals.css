@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -15,13 +15,58 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+*/
+html {
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
+
+  overflow-x: hidden;
+}
 
 body {
-  color: rgb(var(--foreground-rgb));
+  background: rgb(22, 26, 51);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    90deg,
+    rgba(22, 26, 51, 1) 0%,
+    rgba(1, 16, 21, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+  scroll-behavior: smooth;
 }
+/* .slick-slide > div {
+  margin: 10px;
+} */
+
+.slick-dots {
+  top: 92%;
+  list-style-type: none;
+}
+
+.slick-dots li {
+  margin: 20px;
+}
+
+.slick-dots li button {
+  border-radius: 100%;
+  background-color: white !important;
+  border: 2px solid white;
+  text-indent: -9999px;
+  width: 10px;
+  height: 10px;
+
+  opacity: 0.3;
+}
+.slick-dots li button:hover {
+  background-color: transparent;
+}
+.slick-dots li.slick-active button {
+  border: 2px solid white !important;
+  background-color: transparent !important;
+}
+
+/* .bg {
+  background: transparent;
+  border: 2px solid white;
+} */
