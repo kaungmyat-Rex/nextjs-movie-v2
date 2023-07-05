@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
-
+import { useRouter } from "next/router";
 const SearchInput = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data) => {
-    console.log(data.Search);
+    router.push(`search/${data.Search}/1`);
   };
   return (
     <form

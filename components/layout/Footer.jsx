@@ -36,6 +36,7 @@ const Footer = () => {
             }
             width={100}
             height={100}
+            alt="tmdbLOGO"
           />
           <p className="text-white font-mont text-sm pl-8">
             This product uses the TMDB API but is not endorsed or certified by

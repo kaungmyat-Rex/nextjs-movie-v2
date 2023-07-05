@@ -33,7 +33,7 @@ const Navbar = ({ scroll }) => {
           </div>
         </div>
         <div className="flex justify-center items-center gap-2">
-          <CiSearch className="text-2xl" />
+          <CiSearch className="text-2xl hidden sm:block" />
           <p className="border pr-2 pl-2 rounded-md text-sm">EN</p>
           <div className="lg:hidden">
             <Hamburger size={25} />
