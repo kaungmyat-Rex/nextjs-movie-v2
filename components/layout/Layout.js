@@ -2,22 +2,24 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-
+import navScrollCatch from "@/hooks/navScrollCatch";
 export default function Layout({ children }) {
-  const [current, setcurrent] = useState(0);
-  const [scroll, getscroll] = useState(false);
-  const [prev, setprev] = useState(200);
-  useEffect(() => {
-    window.onscroll = function () {
-      setcurrent(Math.floor(window.pageYOffset));
-      if (prev > current) {
-        getscroll(false);
-      } else {
-        getscroll(true);
-      }
-    };
-  }, [current]);
+  // const [current, setcurrent] = useState(0);
+  // const [scroll, getscroll] = useState(false);
+  // const [prev, setprev] = useState(200);
+  // useEffect(() => {
+  //   window.onscroll = function () {
+  //     setcurrent(Math.floor(window.pageYOffset));
+  //     if (prev > current) {
+  //       getscroll(false);
+  //     } else {
+  //       getscroll(true);
+  //     }
+  //   };
+  // }, [current]);
+  const [scroll, scrollEffect] = navScrollCatch();
 
+  scrollEffect();
   return (
     <>
       <Head>

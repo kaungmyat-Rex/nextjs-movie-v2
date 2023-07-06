@@ -28,6 +28,7 @@ module.exports = {
         528: "600px",
         "1px": "1px",
         420: "420px",
+        45: "230px",
       },
       fontFamily: {
         dela: ["Dela Gothic One", "cursive"],

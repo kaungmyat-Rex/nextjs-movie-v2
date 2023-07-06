@@ -29,6 +29,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 import { useForm } from "react-hook-form";
+import SearchList from "@/components/common/search.UI/SearchList";
+import ReactPaginate from "react-paginate";
+import { BsArrowLeftSquare } from "react-icons/bs";
+import { BsArrowRightSquare } from "react-icons/bs";
+import { PiDotsThreeOutlineLight } from "react-icons/pi";
 const Page = () => {
   const router = useRouter();
   const [changePage, setChangePage] = useState(1);
@@ -85,22 +90,21 @@ const Page = () => {
     refetchSerie();
   }, [changePage, test]);
 
-  // console.log(movieData.data);
-  // console.log(serieData.data);
-  console.log(CheckFilm);
+  console.log(movieData?.data);
+  console.log(serieData?.data);
+
   const onSubmit = (data) => {
     setTest(data.Search);
     setChangePage(1);
   };
 
+  const handlePageClick = (event) => {
+    console.log(event.selected + 1);
+    setChangePage(event.selected + 1);
+  };
+
   return (
-    <div className="pt-16 flex flex-col pb-80 w-full justify-center items-center">
-      {/* <button
-        className="mt-40 text-white"
-        onClick={() => setChangePage(changePage + 1)}
-      >
-        {test}
-      </button> */}
+    <div className="pt-16 flex flex-col w-full justify-center items-center">
       <div className="w-11/12 h-1px relative bg-indigo-500 mr-5 ml-5 mb-7 md:mb-12">
         <div className="w-2 h-2 bg-purple-500 rounded-full absolute -top-1 left-1/2"></div>
       </div>
@@ -108,7 +112,7 @@ const Page = () => {
         SEARCH RESULT - {test}
       </h4>
       <form
-        className="flex flex-row justify-center items-center w-full mt- pr-2 pl-2 gap-2 md:pr-16 md:pl-16 md:gap-4"
+        className="flex flex-row justify-center items-center w-full pr-2 pl-2 gap-2 md:pr-16 md:pl-16 md:gap-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <input
@@ -147,6 +151,44 @@ const Page = () => {
           </p>
         </div>
       </div>
+
+      <SearchList
+        data={CheckFilm ? serieData?.data?.results : movieData?.data?.results}
+      />
+      {/* <button
+        className="mt-40 text-white"
+        onClick={() => setChangePage(changePage + 1)}
+      >
+        {test}
+      </button> */}
+      <ReactPaginate
+        nextLabel={
+          <BsArrowRightSquare className="text-white text-4xl ml-5 hover:text-indigo-500" />
+        }
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={2}
+        marginPagesDisplayed={1}
+        pageCount={
+          CheckFilm
+            ? serieData?.data?.total_pages
+            : movieData?.data?.total_pages
+        }
+        previousLabel={
+          <BsArrowLeftSquare className="text-white text-4xl mr-5 hover:text-indigo-500" />
+        }
+        pageClassName="w-8 text-center mr-1 ml-1"
+        pageLinkClassName="text-white text-lg font-mont"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel={<PiDotsThreeOutlineLight className="text-white" />}
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="flex flex-row justify-center items-center mt-40 mb-10"
+        activeClassName="border border-purple-400 bg-gradient-to-r from-purple-500 from-10"
+        renderOnZeroPageCount={null}
+      />
     </div>
   );
 };
