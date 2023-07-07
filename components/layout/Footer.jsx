@@ -1,9 +1,15 @@
 import Image from "next/image";
+import { scrollTop } from "@/hooks/scrolltoTop";
+import { IoIosArrowDropupCircle } from "react-icons/io";
 const Footer = () => {
   return (
     <div className="flex flex-col justify-center items-center pb-12">
       <div className="w-11/12 h-1px relative bg-indigo-500 mr-5 ml-5 mb-7 md:mb-12">
-        <div className="w-2 h-2 bg-purple-500 rounded-full absolute -top-1 left-1/2"></div>
+        {/* <div className="w-2 h-2 bg-purple-500 rounded-full absolute -top-1 left-1/2"></div> */}
+        <IoIosArrowDropupCircle
+          onClick={() => scrollTop()}
+          className="bg-indigo-500 rounded-full absolute -top-4 left-1/2 -translate-x-2/4 text-3xl cursor-pointer"
+        />
       </div>
       <div className="flex flex-col justify-center items-start w-11/12 lg:flex-row lg:items-center">
         <div className="mt-11 lg:flex-1">

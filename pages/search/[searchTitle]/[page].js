@@ -42,11 +42,11 @@ const Page = () => {
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    if (test === "undefined") {
-      router.replace("/");
-    } else {
-      router.replace(`/search/${encodeURIComponent(test)}/${changePage}`);
-    }
+    router.push(
+      `/search/${encodeURIComponent(test)}/${changePage}`,
+      undefined,
+      { shallow: true }
+    );
   }, [changePage, test]);
 
   // const { isLoading, error, data, refetch } = useQuery({
@@ -90,16 +90,12 @@ const Page = () => {
     refetchSerie();
   }, [changePage, test]);
 
-  console.log(movieData?.data);
-  console.log(serieData?.data);
-
   const onSubmit = (data) => {
     setTest(data.Search);
     setChangePage(1);
   };
 
   const handlePageClick = (event) => {
-    console.log(event.selected + 1);
     setChangePage(event.selected + 1);
   };
 
@@ -178,13 +174,7 @@ const Page = () => {
         }
         pageClassName="w-8 text-center mr-1 ml-1"
         pageLinkClassName="text-white text-lg font-mont"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
         breakLabel={<PiDotsThreeOutlineLight className="text-white" />}
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
         containerClassName="flex flex-row justify-center items-center mt-40 mb-10"
         activeClassName="border border-purple-400 bg-gradient-to-r from-purple-500 from-10"
         renderOnZeroPageCount={null}

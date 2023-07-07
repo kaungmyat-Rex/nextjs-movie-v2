@@ -40,6 +40,7 @@ module.exports = {
 
         charcol: "#011015",
         modelbg: "rgb(0, 0, 0, 0.4)",
+        inputmodelbg: "rgb(0, 0, 0, 0.9)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
