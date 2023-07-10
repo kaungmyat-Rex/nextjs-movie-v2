@@ -68,6 +68,9 @@ export default function Home({ data1, data2, data3 }) {
   const [routeCheck, setRouteCheck] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  // const [scroll, scrollEffect] = navScrollCatch();
+
+  // scrollEffect();
 
   useEffect(() => {
     if (!routeCheck) {

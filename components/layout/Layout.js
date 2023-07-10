@@ -17,9 +17,9 @@ export default function Layout({ children }) {
   //     }
   //   };
   // }, [current]);
-  const [scroll, scrollEffect] = navScrollCatch();
-
-  scrollEffect();
+  // const [scroll, scrollEffect] = navScrollCatch();
+  const [scroll] = navScrollCatch();
+  // scrollEffect();
   return (
     <>
       <Head>

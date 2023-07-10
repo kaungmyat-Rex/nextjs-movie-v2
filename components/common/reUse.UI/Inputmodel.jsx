@@ -1,9 +1,55 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-const Inputmodel = ({ setInputmodel }) => {
+import { useCallback, useEffect, useState } from "react";
+import RecentList from "./RecentList";
+const Inputmodel = ({ setInputmodel, openInputmodel }) => {
   const { register, watch } = useForm();
+  const [recent, setRecent] = useState([]);
+  const [localrecent, setlocalRecent] = useState([]);
   const watchedValues = watch();
+
+  const SetPromise = () => {
+    return new Promise((resolve, reject) => {
+      // setRecent([
+      //   ...recent,
+      //   {
+      //     name: watchedValues.Search,
+      //   },
+      // ]);
+      recent.push({ name: watchedValues.Search });
+
+      resolve();
+    });
+  };
+
+  const handleInputSearch = async () => {
+    await SetPromise().then(() => {
+      localStorage.setItem("recent", JSON.stringify(recent));
+      setInputmodel(false);
+    });
+  };
+
+  const deleteRecent = (name) => {
+    const filterRecent = localrecent?.filter((e) => e.name !== name);
+    localStorage.setItem("recent", JSON.stringify(filterRecent));
+    setlocalRecent(filterRecent);
+  };
+
+  useEffect(() => {
+    // const localdata = localStorage.getItem("recent");
+    // setlocalRecent(localStorage.getItem("recent"));
+    setlocalRecent(JSON.parse(localStorage.getItem("recent")));
+  }, [openInputmodel, setlocalRecent]);
+
+  // const fetchlocal = useCallback(() => {
+  //   setlocalRecent(JSON.parse(localStorage.getItem("recent")));
+  // }, []);
+
+  // useEffect(() => {
+  //   fetchlocal();
+  // }, [fetchlocal]);
+
   return (
     <div className="fixed w-full h-full left-0 top-0 bg-inputmodelbg text-white z-40 flex flex-col items-center">
       <AiOutlineClose
@@ -26,10 +72,18 @@ const Inputmodel = ({ setInputmodel }) => {
               className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block rounded-md pl-6 pr-6 pt-2 pb-2 font-mont font-semibold text-base border border-white cursor-pointer hover:bg-gradient-to-r hover:from-indigo-500 hover:text-white transition-all"
               type="submit"
               value="SEARCH"
-              onClick={() => setInputmodel(false)}
+              onClick={() => handleInputSearch()}
             />
           </Link>
         </div>
+      </div>
+      <div className={`w-full pl-16 mt-10`}>
+        <p className={`font-mont text-zinc-300 text-lg`}>Recent Search</p>
+        <RecentList
+          localrecent={localrecent}
+          setInputmodel={setInputmodel}
+          deleteRecent={deleteRecent}
+        />
       </div>
     </div>
   );

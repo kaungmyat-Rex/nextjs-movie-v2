@@ -54,7 +54,10 @@ const Navbar = ({ scroll }) => {
         <SideNav setOpen={setOpen} />{" "}
       </div>
       <div className={`${openInputmodel ? "block" : "hidden"}`}>
-        <Inputmodel setInputmodel={setInputmodel} />
+        <Inputmodel
+          setInputmodel={setInputmodel}
+          openInputmodel={openInputmodel}
+        />
       </div>
     </>
   );
