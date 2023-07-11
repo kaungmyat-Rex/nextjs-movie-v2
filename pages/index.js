@@ -9,25 +9,41 @@ import PopularListSlider from "@/components/common/home.UI/PopularListSlider";
 import GenereList from "@/components/common/home.UI/GenereList";
 import { IoIosArrowForward } from "react-icons/io";
 import TheaterSlide from "@/components/common/home.UI/TheaterSlide";
+import { useQuery } from "@tanstack/react-query";
+export async function getServerSideProps(context) {
+  const { query } = context;
 
+  const PopularList = await axios.get(
+    `https://api.themoviedb.org/3/trending/${
+      query.type === "series" ? "tv" : "movie"
+    }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+  );
+
+  const data2 = PopularList.data.results;
+
+  return {
+    props: {
+      data2: data2,
+    },
+  };
+}
 // export async function getServerSideProps(context) {
 //   const { query } = context;
-
-//   const TopTrend = await axios.get(
-//     `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1&limit=5`
-//   );
-//   const PopularList = await axios.get(
+//   const apiEndpoints = [
+//     `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
 //     `https://api.themoviedb.org/3/trending/${
 //       query.type === "series" ? "tv" : "movie"
-//     }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
-//   );
-//   const NowPlaying = await axios.get(
-//     `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+//     }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
+//     `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
+//   ];
+
+//   const apiResponses = await Promise.all(
+//     apiEndpoints.map((endpoint) => axios.get(endpoint))
 //   );
 
-//   const data1 = TopTrend.data.results;
-//   const data2 = PopularList.data.results;
-//   const data3 = NowPlaying.data.results;
+//   const data1 = apiResponses[0].data.results;
+//   const data2 = apiResponses[1].data.results;
+//   const data3 = apiResponses[2].data.results;
 
 //   return {
 //     props: {
@@ -37,40 +53,37 @@ import TheaterSlide from "@/components/common/home.UI/TheaterSlide";
 //     },
 //   };
 // }
-export async function getServerSideProps(context) {
-  const { query } = context;
-  const apiEndpoints = [
-    `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
-    `https://api.themoviedb.org/3/trending/${
-      query.type === "series" ? "tv" : "movie"
-    }/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`,
-  ];
-
-  const apiResponses = await Promise.all(
-    apiEndpoints.map((endpoint) => axios.get(endpoint))
-  );
-
-  const data1 = apiResponses[0].data.results;
-  const data2 = apiResponses[1].data.results;
-  const data3 = apiResponses[2].data.results;
-
-  return {
-    props: {
-      data1: data1.slice(0, 5),
-      data2: data2,
-      data3: data3.slice(0, 10),
-    },
-  };
-}
 
 export default function Home({ data1, data2, data3 }) {
   const [routeCheck, setRouteCheck] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-  // const [scroll, scrollEffect] = navScrollCatch();
 
-  // scrollEffect();
+  const fetchMovieHero = async () => {
+    return await axios.get(
+      `https://api.themoviedb.org/3/trending/all/day?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+    );
+  };
+
+  const { data: movieHeroData } = useQuery({
+    queryKey: ["movieHero"],
+    queryFn: fetchMovieHero,
+  });
+
+  // console.log(movieHeroData?.data?.results);
+
+  const fetchMovieTheater = async () => {
+    return await axios.get(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=97daa3077452cbe6f793644c1afc0868&language=en-US&page=1`
+    );
+  };
+
+  const { data: movieTheaterData } = useQuery({
+    queryKey: ["movieTheater"],
+    queryFn: fetchMovieTheater,
+  });
+
+  console.log(movieTheaterData?.data?.results);
 
   useEffect(() => {
     if (!routeCheck) {
@@ -85,7 +98,7 @@ export default function Home({ data1, data2, data3 }) {
   // }, [data1]);
   return (
     <main className="w-full h-full flex flex-col justify-center items-center relative">
-      <HeroSlider data1={data1} />
+      <HeroSlider data1={movieHeroData?.data?.results.slice(0, 5)} />
       <div className="pt-32 pb-14 flex flex-col justify-center items-center sm:hidden">
         <h4 className="font-cherry text-5xl drop-shadow-3xl inline-block mix-blend-screen">
           MRML
@@ -135,7 +148,7 @@ export default function Home({ data1, data2, data3 }) {
           IN THEATER
           <IoIosArrowForward />
         </h4>
-        <TheaterSlide data3={data3} />
+        <TheaterSlide data3={movieTheaterData?.data?.results} />
       </div>
     </main>
   );

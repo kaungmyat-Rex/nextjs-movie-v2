@@ -39,7 +39,7 @@ const HeroSlider = ({ data1 }) => {
   return (
     <div className="w-full m-0  pb-9 hidden sm:block">
       <Slider {...settings} className="w-full m-0">
-        {data1.map((e, index) => (
+        {data1?.map((e, index) => (
           <main className="relative w-full lg:h-528" key={e.id}>
             <div className="absolute w-full h-full bg-black opacity-50"></div>
             <img
