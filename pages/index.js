@@ -54,7 +54,7 @@ export async function getServerSideProps(context) {
 //   };
 // }
 
-export default function Home({ data1, data2, data3 }) {
+export default function Home({ data2 }) {
   const [routeCheck, setRouteCheck] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -82,8 +82,6 @@ export default function Home({ data1, data2, data3 }) {
     queryKey: ["movieTheater"],
     queryFn: fetchMovieTheater,
   });
-
-  console.log(movieTheaterData?.data?.results);
 
   useEffect(() => {
     if (!routeCheck) {

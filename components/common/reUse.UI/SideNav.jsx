@@ -14,7 +14,7 @@ const SideNav = ({ setOpen }) => {
               Home
             </p>
           </Link>
-          <Link href="/movie">
+          <Link href="/movies/popular">
             {" "}
             <p className="font-dela text-xl border-b pb-5 pt-10 border-purple-900">
               Movies

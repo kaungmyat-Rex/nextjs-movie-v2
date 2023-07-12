@@ -5,7 +5,7 @@ const SearchList = ({ data }) => {
       {data?.map((e) => (
         <div
           key={e.id}
-          className="relative w-40 flex flex-col cursor-pointer mt-6"
+          className="relative w-40 flex flex-col cursor-pointer mt-6 hover:scale-105 transition-all"
         >
           {/* <img
             src={`${
@@ -18,13 +18,13 @@ const SearchList = ({ data }) => {
           /> */}
           {e.poster_path === null ? (
             <img
-              className="rounded-2xl w-full h-45 object-cover relative border border-indigo-500"
+              className="rounded-2xl w-full h-45 object-cover relative border border-indigo-500 hover:border-2"
               src={imagenotFound.src}
               alt=""
             />
           ) : (
             <img
-              className="rounded-2xl w-full relative border border-indigo-500"
+              className="rounded-2xl w-full relative border border-indigo-500 hover:border-2 hover:border-purple-500 transition-all"
               src={`https://image.tmdb.org/t/p/w500${e.poster_path}`}
               alt="poster"
             />
