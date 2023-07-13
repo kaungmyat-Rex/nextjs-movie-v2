@@ -16,17 +16,23 @@ const SideNav = ({ setOpen }) => {
           </Link>
           <Link href="/movies/popular">
             {" "}
-            <p className="font-dela text-xl border-b pb-5 pt-10 border-purple-900">
+            <p
+              onClick={() => setOpen(false)}
+              className="font-dela text-xl border-b pb-5 pt-10 border-purple-900"
+            >
               Movies
             </p>
           </Link>
-          <Link href="serie">
+          <Link href="/series/popular">
             {" "}
-            <p className="font-dela text-xl border-b pb-5 pt-10 border-purple-900">
+            <p
+              onClick={() => setOpen(false)}
+              className="font-dela text-xl border-b pb-5 pt-10 border-purple-900"
+            >
               Series
             </p>
           </Link>
-          <Link href="">
+          <Link href="/peoples">
             {" "}
             <p className="font-dela text-xl border-b pb-5 pt-10 border-purple-900">
               People

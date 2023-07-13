@@ -31,10 +31,10 @@ const Navbar = ({ scroll }) => {
                 <Link href={"/movies/popular"}>Movies</Link>
               </p>
               <p className="mr-9 ml-9 cursor-pointer hover:underline underline-offset-8 decoration-pink-500 ease-in duration-500">
-                <Link href={"/"}>Series</Link>
+                <Link href={"/series/popular"}>Series</Link>
               </p>
               <p className="mr-9 ml-9 cursor-pointer hover:underline underline-offset-8 decoration-pink-500 ease-in duration-500">
-                <Link href={"/"}>People</Link>
+                <Link href={"/peoples"}>People</Link>
               </p>
             </div>
           </div>
