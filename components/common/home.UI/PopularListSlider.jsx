@@ -1,4 +1,5 @@
 import Slider from "react-slick";
+import Loading from "../reUse.UI/Loading";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -69,7 +70,7 @@ const PopularListSlider = ({ data2 }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full transition-all">
       <Slider {...settings} className="">
         {data2?.map((e) => (
           <div key={e.id} className="relative w-72 flex cursor-pointer p-4">

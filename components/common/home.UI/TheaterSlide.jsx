@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import axios from "axios";
 import YTmodel from "../reUse.UI/YTmodel";
-const TheaterSlide = ({ data3 }) => {
+const TheaterSlide = ({ data2 }) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [Trailar, setTrailar] = useState([]);
@@ -50,7 +50,7 @@ const TheaterSlide = ({ data3 }) => {
           //   ref={(slider1) => setNav1(slider1)}
           //   arrows={true}
         >
-          {data3?.map((e) => (
+          {data2?.map((e) => (
             <div
               key={e.id}
               className="w-full h-auto relative lg:rounded-md lg:border border-zinc-700"
@@ -114,7 +114,7 @@ const TheaterSlide = ({ data3 }) => {
           slidesToScroll={false}
           draggable={false}
         >
-          {data3?.map((e) => (
+          {data2?.map((e) => (
             <div
               key={e.id}
               className="w-full bg-gradient-to-r from-indigo-950 from-10 "
