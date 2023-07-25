@@ -1,5 +1,9 @@
 import { AiOutlineClose } from "react-icons/ai";
+import Openmodel from "@/hooks/openModel";
+
 const YTmodel = ({ Trailar, setOpenModel }) => {
+  // const [openModel, openModelFun] = Openmodel();
+  // console.log(openModel);
   return (
     <div className="fixed left-0 top-0 w-full h-full bg-modelbg flex justify-center items-center backdrop-blur-lg">
       <div className="max-w-3xl w-full h-80 relative md:h-96 lg:h-420">

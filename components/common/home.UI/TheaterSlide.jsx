@@ -3,11 +3,14 @@ import Slider from "react-slick";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import axios from "axios";
 import YTmodel from "../reUse.UI/YTmodel";
+import Openmodel from "@/hooks/openModel";
 const TheaterSlide = ({ data2 }) => {
   const [nav1, setNav1] = useState();
   const [nav2, setNav2] = useState();
   const [Trailar, setTrailar] = useState([]);
+  // const [openModel, openModelFun] = Openmodel();
   const [openModel, setOpenModel] = useState(false);
+
   const settings = {
     arrows: false,
     asNavFor: nav2,

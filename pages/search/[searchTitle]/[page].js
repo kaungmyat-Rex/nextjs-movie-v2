@@ -150,6 +150,7 @@ const Page = () => {
 
       <SearchList
         data={CheckFilm ? serieData?.data?.results : movieData?.data?.results}
+        CheckFilm={CheckFilm}
       />
       {/* <button
         className="mt-40 text-white"

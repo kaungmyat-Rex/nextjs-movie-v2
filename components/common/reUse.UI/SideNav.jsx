@@ -34,8 +34,11 @@ const SideNav = ({ setOpen }) => {
           </Link>
           <Link href="/peoples">
             {" "}
-            <p className="font-dela text-xl border-b pb-5 pt-10 border-purple-900">
-              People
+            <p
+              onClick={() => setOpen(false)}
+              className="font-dela text-xl border-b pb-5 pt-10 border-purple-900"
+            >
+              News
             </p>
           </Link>
         </div>

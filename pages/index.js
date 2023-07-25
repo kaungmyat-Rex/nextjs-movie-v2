@@ -140,7 +140,10 @@ export default function Home({ data1, data2 }) {
             Series
           </p>
         </div>
-        <PopularListSlider data2={moviePopularData?.data.results} />
+        <PopularListSlider
+          data2={moviePopularData?.data.results}
+          routeCheck={routeCheck}
+        />
       </div>
       <div className="w-11/12 mt-32 lg:w-4/5">
         <GenereList />

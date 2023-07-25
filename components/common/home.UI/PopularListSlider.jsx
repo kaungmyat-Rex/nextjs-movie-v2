@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import Loading from "../reUse.UI/Loading";
+import Link from "next/link";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -17,7 +18,7 @@ function DisplayNextArrow(props) {
   return <div className={className} style={{ ...style }} onClick={onClick} />;
 }
 
-const PopularListSlider = ({ data2 }) => {
+const PopularListSlider = ({ data2, routeCheck }) => {
   const settings = {
     className: "center",
     centerMode: true,
@@ -73,12 +74,16 @@ const PopularListSlider = ({ data2 }) => {
     <div className="w-full transition-all">
       <Slider {...settings} className="">
         {data2?.map((e) => (
-          <div key={e.id} className="relative w-72 flex cursor-pointer p-4">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${e.poster_path}`}
-              alt="casual"
-              className="rounded-2xl w-full relative border border-purple-500"
-            />
+          <div key={e.id} className="relative w-72 flex p-4">
+            <Link
+              href={`/${routeCheck ? "serieDetail" : "movieDetail"}/${e.id}`}
+            >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${e.poster_path}`}
+                alt="casual"
+                className="rounded-2xl w-full relative border border-purple-500 hover:scale-105 transition-all cursor-pointer"
+              />
+            </Link>
             {/* <div className="absolute left-0 bottom-0 bg-gradient-to-t from-purple-950 from-10 w-full h-full"></div> */}
             {/* <h4 className="absolute left-2 -bottom-4 text-white text-xl">
               {e.media_type === "movie" ? e.title : e.name}

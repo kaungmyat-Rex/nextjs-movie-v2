@@ -2,6 +2,7 @@ import Slider from "react-slick";
 import { FaPlay } from "react-icons/fa";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Link from "next/link";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
@@ -36,6 +37,7 @@ const HeroSlider = ({ data1 }) => {
       },
     ],
   };
+
   return (
     <div className="w-full m-0  pb-9 hidden sm:block">
       <Slider {...settings} className="w-full m-0">
@@ -65,11 +67,27 @@ const HeroSlider = ({ data1 }) => {
                 <span className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500  flex gap-2 font-mont font-semibold items-center  rounded-md pt-2 pb-2 pl-6 pr-6 border-2 border-white cursor-pointer">
                   {" "}
                   <FaPlay />
-                  <h1>WATCH</h1>
+                  <Link
+                    href={`https://channelmyanmar.org/${
+                      e.media_type === "movie"
+                        ? e.original_title?.replace(/\s+/g, "-")
+                        : e.name?.replace(/\s+/g, "-")
+                    }`}
+                  >
+                    <h1>WATCH</h1>
+                  </Link>
                 </span>
-                <p className="font-mont font-semibold rounded-md pt-2 pb-2 pl-5 pr-5 border-2 border-white text-white cursor-pointer hover:bg-white hover:opacity-50 hover:text-black transition-all">
-                  ABOUT FILM
-                </p>
+                <Link
+                  href={`${
+                    e.media_type === "tv"
+                      ? `/serieDetail/${e.id}`
+                      : `/movieDetail/${e.id}`
+                  }`}
+                >
+                  <p className="font-mont font-semibold rounded-md pt-2 pb-2 pl-5 pr-5 border-2 border-white text-white cursor-pointer hover:bg-white hover:opacity-50 hover:text-black transition-all">
+                    ABOUT FILM
+                  </p>
+                </Link>
               </div>
             </div>
           </main>

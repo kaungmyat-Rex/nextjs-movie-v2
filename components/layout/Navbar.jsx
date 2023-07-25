@@ -34,7 +34,7 @@ const Navbar = ({ scroll }) => {
                 <Link href={"/series/popular"}>Series</Link>
               </p>
               <p className="mr-9 ml-9 cursor-pointer hover:underline underline-offset-8 decoration-pink-500 ease-in duration-500">
-                <Link href={"/peoples"}>People</Link>
+                <Link href={"/peoples"}>News</Link>
               </p>
             </div>
           </div>

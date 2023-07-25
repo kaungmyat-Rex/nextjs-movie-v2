@@ -1,6 +1,6 @@
 import imagenotFound from "../../../assets/inf.png";
 import Link from "next/link";
-const SearchList = ({ data, CheckFilm }) => {
+const SeriesList = ({ data }) => {
   return (
     <div className="flex flex-wrap justify-center mt-7 gap-5 lg:gap-8 lg:w-11/12 lg:justify-start">
       {data?.map((e) => (
@@ -18,9 +18,7 @@ const SearchList = ({ data, CheckFilm }) => {
             className="rounded-2xl w-full relative border border-purple-500"
           /> */}
           {e.poster_path === null ? (
-            <Link
-              href={`/${CheckFilm ? "serieDetail" : "movieDetail"}/${e.id}`}
-            >
+            <Link href={`/serieDetail/${e.id}`}>
               {" "}
               <img
                 className="rounded-2xl w-full h-45 object-cover relative border border-indigo-500 hover:border-2"
@@ -29,9 +27,7 @@ const SearchList = ({ data, CheckFilm }) => {
               />
             </Link>
           ) : (
-            <Link
-              href={`/${CheckFilm ? "serieDetail" : "movieDetail"}/${e.id}`}
-            >
+            <Link href={`/serieDetail/${e.id}`}>
               <img
                 className="rounded-2xl w-full relative border border-indigo-500 hover:border-2 hover:border-purple-500 transition-all"
                 src={`https://image.tmdb.org/t/p/w500${e.poster_path}`}
@@ -53,4 +49,4 @@ const SearchList = ({ data, CheckFilm }) => {
   );
 };
 
-export default SearchList;
+export default SeriesList;

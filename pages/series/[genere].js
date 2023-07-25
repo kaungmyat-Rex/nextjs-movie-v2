@@ -10,6 +10,7 @@ import { BsArrowLeftSquare } from "react-icons/bs";
 import { BsArrowRightSquare } from "react-icons/bs";
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import SeriesGenreList from "@/components/common/series.UI/seriesGenreList";
+import SeriesList from "@/components/common/series.UI/SeriesList";
 const SeriesGenere = () => {
   const router = useRouter();
 
@@ -86,7 +87,7 @@ const SeriesGenere = () => {
         {/* <GenereListmenu genereRoutes={genereRoutes} /> */}
         <SeriesGenreList genereRoutes={genereRoutes} />
       </div>
-      <SearchList data={data?.data?.results} />
+      <SeriesList data={data?.data?.results} />
       {/* <button className="text-white" onClick={() => setPageNo(pageNo + 1)}>
         Change page
       </button> */}

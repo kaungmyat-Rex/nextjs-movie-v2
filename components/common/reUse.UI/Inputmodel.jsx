@@ -3,12 +3,13 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import RecentList from "./RecentList";
+import { useRouter } from "next/router";
 const Inputmodel = ({ setInputmodel, openInputmodel }) => {
   const { register, watch } = useForm();
   const [recent, setRecent] = useState([]);
   const [localrecent, setlocalRecent] = useState([]);
   const watchedValues = watch();
-
+  const router = useRouter();
   const SetPromise = () => {
     return new Promise((resolve, reject) => {
       // setRecent([
@@ -24,6 +25,7 @@ const Inputmodel = ({ setInputmodel, openInputmodel }) => {
   };
 
   const handleInputSearch = async () => {
+    router.replace(`/search/[${watchedValues.Search}]/1`);
     await SetPromise().then(() => {
       localStorage.setItem("recent", JSON.stringify(recent));
       setInputmodel(false);
@@ -67,14 +69,14 @@ const Inputmodel = ({ setInputmodel, openInputmodel }) => {
             placeholder="Search Your Movies and Series"
             {...register("Search")}
           />
-          <Link href={`search/[${watchedValues.Search}]/1`}>
-            <input
-              className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block rounded-md pl-6 pr-6 pt-2 pb-2 font-mont font-semibold text-base border border-white cursor-pointer hover:bg-gradient-to-r hover:from-indigo-500 hover:text-white transition-all"
-              type="submit"
-              value="SEARCH"
-              onClick={() => handleInputSearch()}
-            />
-          </Link>
+          {/* <Link href={`search/[${watchedValues.Search}]/1`}> */}
+          <input
+            className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 inline-block rounded-md pl-6 pr-6 pt-2 pb-2 font-mont font-semibold text-base border border-white cursor-pointer hover:bg-gradient-to-r hover:from-indigo-500 hover:text-white transition-all"
+            type="submit"
+            value="SEARCH"
+            onClick={() => handleInputSearch()}
+          />
+          {/* </Link> */}
         </div>
       </div>
       <div className={`w-full pl-16 mt-10`}>
