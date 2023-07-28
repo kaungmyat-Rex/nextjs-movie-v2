@@ -23,6 +23,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Cherry+Cream+Soda&display=swap"
           rel="stylesheet"
         ></link>
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <body>
