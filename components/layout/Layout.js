@@ -27,7 +27,10 @@ export default function Layout({ children }) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#278EA5" />
-        <meta name="title" content="MRML | Movie with Myanmar Language" />
+        <meta
+          name="title"
+          content="MRML | Movie Review with Myanmar Language"
+        />
         <meta name="description" content="" />
         <meta
           name="keywords"
@@ -39,9 +42,13 @@ export default function Layout({ children }) {
         <meta name="revisit-after" content="1 days" />
         <meta name="author" content="Kaung Myat" />
 
-        <title>MRML | Movie with Myanmar Language</title>
-        <meta name="title" content="MRML | Movie with Myanmar Language" />
+        <title>MRML | Movie Review with Myanmar Language</title>
+        <meta
+          name="title"
+          content="MRML | Movie Review with Myanmar Language"
+        />
         <meta name="description" content="" />
+        <link rel="manifest" href="/manifest.json" />
         {/* ,,,,,,,,
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://cine.tenyain.com" />
